@@ -1,5 +1,12 @@
 <div class="row">
   <nb-card>
-    <nb-card-body>Hello from ngx-admin sandbox project.</nb-card-body>
+    <nb-card-body>Diccionario de datos DXP</nb-card-body>
+    <ng2-smart-table
+      [settings]="settings"
+      [source]="dictionaries"
+      (createConfirm)="addRecord($event)"
+      (editConfirm)="updateRecord($event)"
+      (deleteConfirm)="deleteRecord($event)">
+    </ng2-smart-table>
   </nb-card>
 </div>
