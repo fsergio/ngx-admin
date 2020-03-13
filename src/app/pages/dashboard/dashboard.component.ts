@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
     },
     pager: {
       display: true,
-      perPage: 2,
+      perPage: 5,
     },
     add: {
       confirmCreate: true,
