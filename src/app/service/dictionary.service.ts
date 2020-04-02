@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Dictionary} from '../model/dictionary';
 
 @Injectable({
@@ -47,5 +46,21 @@ export class DictionaryService {
     };
 
     return this.httpClient.delete<any>('http://localhost:8089/dictionary/' + id, httpOptions);
+  }
+
+  findByLegacyCode(code: any, source: any) {
+    let httpParams = new HttpParams();
+    if (code) httpParams = httpParams.append('codeLegacy', code);
+    if (source) httpParams = httpParams.append('source', source);
+
+    return this.httpClient.get('http://localhost:8089/dictionary/search/findByCodeLegacyAndSource', {params: httpParams});
+  }
+
+  findByDXPCode(code: any, source: any) {
+    let httpParams = new HttpParams();
+    if (code) httpParams = httpParams.append('codeDXP', code);
+    if (source) httpParams = httpParams.append('source', source);
+
+    return this.httpClient.get('http://localhost:8089/dictionary/search/findByCodeDXPAndSource', {params: httpParams});
   }
 }

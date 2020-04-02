@@ -6,15 +6,22 @@ import {Dictionary} from '../../model/dictionary';
 @Component({
   selector: 'ngx-dashboard',
   templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.css'],
 })
 export class DashboardComponent implements OnInit {
   dictionaries = [] = new Array<Dictionary>();
+  transformToDXP: string = 'transformación';
+  sourceToDXP: any = '';
+  transformToLegacy: string = 'transformación';
+  sourceToLegacy: any = '';
 
   constructor(public dictionaryService: DictionaryService, public httpClient: HttpClient) {
   }
 
   settings = {
     noDataMessage: 'No hay datos',
+    hideHeader: false,
+    hideSubHeader: false,
     columns: {
       id: {
         title: 'ID',
@@ -37,15 +44,22 @@ export class DashboardComponent implements OnInit {
       perPage: 5,
     },
     add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+      createButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
       confirmCreate: true,
-      addButtonContent: 'Nuevo',
+      // addButtonContent: 'Nuevo',
     },
     edit: {
-      editButtonContent: 'Editar',
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      // editButtonContent: 'Editar',
       confirmSave: true,
     },
     delete: {
-      deleteButtonContent: 'Borrar',
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      // deleteButtonContent: 'Borrar',
       confirmDelete: true,
     },
     actions: {
@@ -111,13 +125,45 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteRecord(event: any) {
-    this.dictionaryService.deleteDictionary(event.data.id).subscribe(
-      result => (
-        event.confirm.resolve(result)
-      ),
-      error => (
-        console.error(error)
-      ),
+    if (window.confirm('Borrar?')) {
+      this.dictionaryService.deleteDictionary(event.data.id).subscribe(
+        result => (
+          event.confirm.resolve(result)
+        ),
+        error => (
+          console.error(error)
+        ),
+      );
+    } else {
+      event.confirm.reject();
+    }
+  }
+
+  findByLegacyCode(event: any, source: any) {
+    console.info(event.target.value);
+    this.dictionaryService.findByLegacyCode(event.target.value, source).subscribe(
+      (result: any) => {
+        if (result) {
+          this.transformToDXP = result.transformValue;
+        }
+      }, error => {
+        if (error.status === 404) this.transformToDXP = 'No hay coincidencias';
+        console.error(error);
+      },
+    );
+  }
+
+  findByDXPCode(event: any, source: any) {
+    console.info(event.target.value);
+    this.dictionaryService.findByDXPCode(event.target.value, source).subscribe(
+      (result: any) => {
+        if (result) {
+          this.transformToLegacy = result.transformValue;
+        }
+      }, error => {
+        if (error.status === 404) this.transformToLegacy = 'No hay coincidencias';
+        console.error(error);
+      },
     );
   }
 }

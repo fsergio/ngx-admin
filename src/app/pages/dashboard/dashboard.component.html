@@ -1,6 +1,6 @@
 <div class="row">
   <nb-card>
-    <nb-card-body>Diccionario de datos DXP</nb-card-body>
+    <nb-card-body>Diccionario de Datos DXP</nb-card-body>
     <ng2-smart-table
       [settings]="settings"
       [source]="dictionaries"
@@ -8,5 +8,33 @@
       (editConfirm)="updateRecord($event)"
       (deleteConfirm)="deleteRecord($event)">
     </ng2-smart-table>
+  </nb-card>
+  <nb-card>
+    <nb-card-body>Buscar Transformación</nb-card-body>
+    <nb-card-body class="example-items-rows">
+      <input type="text" nbInput placeholder="Código Legado"
+             (keyup.enter)="findByLegacyCode($event, sourceToDXP)">
+      <input type="text" nbInput placeholder="Source" [value]="sourceToDXP" (input)="sourceToDXP = $event.target.value">
+<!--      <nb-card size="small">-->
+<!--        <nb-card-body>-->
+<!--          <nb-select placeholder="Select Showcase" [(selected)]="sources">-->
+<!--            <nb-option value="">Option empty</nb-option>-->
+<!--            <nb-option value="0">Option 0</nb-option>-->
+<!--            <nb-option value="1">Option 1</nb-option>-->
+<!--            <nb-option value="2">Option 2</nb-option>-->
+<!--            <nb-option value="3">Option 3</nb-option>-->
+<!--            <nb-option value="4">Option 4</nb-option>-->
+<!--          </nb-select>-->
+<!--        </nb-card-body>-->
+<!--      </nb-card>-->
+      <input type="text" placeholder="Transformación" [value]="transformToDXP" disabled>
+    </nb-card-body>
+    <nb-card-body class="example-items-rows">
+      <input type="text" nbInput placeholder="Código DXP"
+             (keyup.enter)="findByDXPCode($event, sourceToLegacy)">
+      <input type="text" nbInput placeholder="Source" [value]="sourceToLegacy"
+             (input)="sourceToLegacy = $event.target.value">
+      <input type="text" placeholder="Transformación" [value]="transformToLegacy" disabled>
+    </nb-card-body>
   </nb-card>
 </div>

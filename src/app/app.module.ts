@@ -14,8 +14,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {
   NbChatModule,
   NbDatepickerModule,
-  NbDialogModule,
-  NbMenuModule,
+  NbDialogModule, NbInputModule, NbListModule,
+  NbMenuModule, NbSelectModule,
   NbSidebarModule,
   NbToastrModule,
   NbWindowModule,
@@ -43,6 +43,9 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
     }),
     CoreModule.forRoot(),
     Ng2SmartTableModule,
+    NbInputModule,
+    NbListModule,
+    NbSelectModule,
   ],
   bootstrap: [AppComponent],
 })

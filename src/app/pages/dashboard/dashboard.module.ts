@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {NbCardModule} from '@nebular/theme';
+import {NbCardModule, NbListModule, NbSelectModule, NbUserModule} from '@nebular/theme';
 
 import {ThemeModule} from '../../@theme/theme.module';
 import {DashboardComponent} from './dashboard.component';
@@ -10,6 +10,9 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
     NbCardModule,
     ThemeModule,
     Ng2SmartTableModule,
+    NbListModule,
+    NbUserModule,
+    NbSelectModule,
   ],
   declarations: [
     DashboardComponent,
