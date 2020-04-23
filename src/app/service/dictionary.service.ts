@@ -34,7 +34,7 @@ export class DictionaryService {
       }),
     };
 
-    return this.httpClient.post<any>('http://localhost:8089/dictionary', dictionary, httpOptions);
+    return this.httpClient.put<any>('http://localhost:8089/dictionary/' + dictionary.id, dictionary, httpOptions);
   }
 
   deleteDictionary(id: any) {
